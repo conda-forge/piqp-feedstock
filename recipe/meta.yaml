@@ -11,8 +11,9 @@ source:
 
 build:
   skip: true  # [win and vc<14]
-  script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
+  run_exports:
+    - {{ pin_subpackage(name, max_pin='x.x') }}
 
 requirements:
   build:
@@ -27,9 +28,12 @@ requirements:
     - setuptools >=42
     - wheel
     - eigen
+    - libmatio
     - python
     - pip
   run:
+    - eigen
+    - libmatio
     - python
 
 test:
