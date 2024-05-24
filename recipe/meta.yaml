@@ -1,5 +1,5 @@
 {% set name = "piqp" %}
-{% set version = "0.2.4" %}
+{% set version = "0.3.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/PREDICT-EPFL/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 7be3524d000427bd152ea75748799aaf577ee62504f453cf5c6a9d8611819895
+  sha256: 9702ef1e764328312a4009c1d2f5e28dc56e748decea8712be6ae5422b679d6f
 
 build:
   skip: true  # [win and vc<14]
@@ -17,6 +17,7 @@ build:
 requirements:
   build:
     - {{ compiler('cxx') }}
+    - {{ stdlib("c") }}
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - make  # [not win]
