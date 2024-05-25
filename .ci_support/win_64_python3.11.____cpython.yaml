@@ -7,7 +7,7 @@ channel_targets:
 cxx_compiler:
 - vs2019
 libmatio:
-- 1.5.26
+- 1.5.27
 pin_run_as_build:
   python:
     min_pin: x.x
