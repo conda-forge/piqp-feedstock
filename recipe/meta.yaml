@@ -1,5 +1,5 @@
 {% set name = "piqp" %}
-{% set version = "0.4.2" %}
+{% set version = "0.5.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,20 +7,28 @@ package:
 
 source:
   url: https://github.com/PREDICT-EPFL/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 9db9ae5ad3574c5ada2c2a8fa31b5be45796b6bf47d18bde67da39b7ab425521
+  sha256: 5009e2774c251886d8a9928c796f5f2317283a8380b611aa8b91ef145813c446
+  patches:
+    - cmake_blasfeo_path.patch
 
 build:
   skip: true  # [win and vc<14]
-  number: 2
+  number: 0
   run_exports:
     - {{ pin_subpackage(name, max_pin='x.x') }}
+  script_env:
+    - ISA_TARGET=GENERIC  # [not (x86_64 or aarch64 or arm64)]
+    - ISA_TARGET=X64  # [x86_64]
+    - ISA_TARGET=ARM64  # [arm64]
+    - ISA_TARGET=AARCH64  # [aarch64]
 
 requirements:
   build:
     - {{ compiler('cxx') }}
-    - {{ stdlib("c") }}
+    - {{ stdlib('c') }}
     - python                                 # [build_platform != target_platform]
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
+    - clang  # [win]
     - make  # [not win]
     - ninja
     - cmake >=3.12
@@ -28,11 +36,13 @@ requirements:
     - setuptools >=42
     - wheel
     - eigen
+    - libblasfeo
     - libmatio
     - python
     - pip
   run:
     - eigen
+    - libblasfeo
     - libmatio
     - python
 

@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 443b22c..0cb8da3 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -185,7 +185,7 @@ endif ()
+ 
+ function(CREATE_BLASFEO_LIBRARY library_name library_dir)
+     set(lib_var "${library_name}_lib")
+-    find_library(${lib_var} NAMES blasfeo HINTS "${library_dir}/lib")
++    find_library(${lib_var} NAMES blasfeo HINTS "${library_dir}/lib" NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+ 
+     add_library(${library_name} UNKNOWN IMPORTED)
+     set_target_properties(${library_name} PROPERTIES INTERFACE_INCLUDE_DIRECTORIES "${library_dir}/include")
