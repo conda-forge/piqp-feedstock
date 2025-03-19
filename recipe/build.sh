@@ -5,7 +5,7 @@ cd conda_build
 
 cmake ${CMAKE_ARGS} .. \
       -DCMAKE_BUILD_TYPE=Release \
-      -BUILD_WITH_BLASFEO=ON \
+      -DBUILD_WITH_BLASFEO=ON \
       -DBUILD_TESTS=OFF
 
 cmake --build . --config Release -- -j${CPU_COUNT}
@@ -29,7 +29,7 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
 
     if [[ "$ISA_TARGET" == "X64" ]]; then
         cmake ${CMAKE_ARGS} .. \
-              -DCMAKE_INSTALL_PREFIX=/opt/blasfeo_x64 \
+              -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_x64 \
               -DCMAKE_BUILD_TYPE=Release \
               -DBLASFEO_CROSSCOMPILING=ON \
               -DBLAS_API=OFF \
@@ -37,10 +37,10 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
               -DTARGET=X64_INTEL_CORE
         cmake --build . --config Release -- -j${CPU_COUNT}
         cmake --build . --config Release --target install
-        export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_X64_DIR=/opt/blasfeo_x64"
+        export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_X64_DIR=$SRC_DIR/blasfeo_x64"
 
         cmake ${CMAKE_ARGS} .. \
-              -DCMAKE_INSTALL_PREFIX=/opt/blasfeo_x64_avx2 \
+              -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_x64_avx2 \
               -DCMAKE_BUILD_TYPE=Release \
               -DBLASFEO_CROSSCOMPILING=ON \
               -DBLAS_API=OFF \
@@ -48,10 +48,10 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
               -DTARGET=X64_INTEL_HASWELL
         cmake --build . --config Release -- -j${CPU_COUNT}
         cmake --build . --config Release --target install
-        export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_X64_AVX2_DIR=/opt/blasfeo_x64_avx2"
+        export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_X64_AVX2_DIR=$SRC_DIR/blasfeo_x64_avx2"
 
         cmake ${CMAKE_ARGS} .. \
-              -DCMAKE_INSTALL_PREFIX=/opt/blasfeo_x64_avx512 \
+              -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_x64_avx512 \
               -DCMAKE_BUILD_TYPE=Release \
               -DBLASFEO_CROSSCOMPILING=ON \
               -DBLAS_API=OFF \
@@ -59,12 +59,12 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
               -DTARGET=X64_INTEL_SKYLAKE_X
         cmake --build . --config Release -- -j${CPU_COUNT}
         cmake --build . --config Release --target install
-        export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_X64_AVX512_DIR=/opt/blasfeo_x64_avx512"
+        export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_X64_AVX512_DIR=$SRC_DIR/blasfeo_x64_avx512"
     fi
 
     if [[ "$ISA_TARGET" == "ARM64" ]]; then
         cmake ${CMAKE_ARGS} .. \
-              -DCMAKE_INSTALL_PREFIX=/opt/blasfeo_arm64 \
+              -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_arm64 \
               -DCMAKE_BUILD_TYPE=Release \
               -DBLASFEO_CROSSCOMPILING=ON \
               -DBLAS_API=OFF \
@@ -72,12 +72,12 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
               -DTARGET=ARMV8A_APPLE_M1
         cmake --build . --config Release -- -j${CPU_COUNT}
         cmake --build . --config Release --target install
-        export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_ARM64_DIR=/opt/blasfeo_arm64"
+        export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_ARM64_DIR=$SRC_DIR/blasfeo_arm64"
     fi
 
     if [[ "$ISA_TARGET" == "AARCH64" ]]; then
         cmake ${CMAKE_ARGS} .. \
-              -DCMAKE_INSTALL_PREFIX=/opt/blasfeo_arm64 \
+              -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_arm64 \
               -DCMAKE_BUILD_TYPE=Release \
               -DBLASFEO_CROSSCOMPILING=ON \
               -DBLAS_API=OFF \
@@ -85,7 +85,7 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
               -DTARGET=ARMV8A_ARM_CORTEX_A76
         cmake --build . --config Release -- -j${CPU_COUNT}
         cmake --build . --config Release --target install
-        export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_ARM64_DIR=/opt/blasfeo_arm64"
+        export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_ARM64_DIR=$SRC_DIR/blasfeo_arm64"
     fi
 
     export CMAKE_ARGS="${CMAKE_ARGS} ${PIQP_CMAKE_ARGS}"

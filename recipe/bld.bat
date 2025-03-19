@@ -1,10 +1,12 @@
+setlocal EnableDelayedExpansion
+
 mkdir conda_build
 cd conda_build
 
 cmake %CMAKE_ARGS% ^
     -DCMAKE_INSTALL_PREFIX=%LIBRARY_PREFIX% ^
     -DCMAKE_BUILD_TYPE=Release ^
-    -BUILD_WITH_BLASFEO=ON ^
+    -DBUILD_WITH_BLASFEO=ON ^
     -DBUILD_TESTS=OFF ^
     %SRC_DIR%
 if errorlevel 1 exit 1
@@ -30,13 +32,13 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
     mkdir build
     cd build
 
-    set PIQP_CMAKE_ARGS=-DBUILD_WITH_BLASFEO=ON
+    set "PIQP_CMAKE_ARGS=-DBUILD_WITH_BLASFEO=ON"
 
     if "%ISA_TARGET%"=="X64" (
         cmake %CMAKE_ARGS% .. ^
             -G "Ninja" ^
             -DCMAKE_C_COMPILER=clang-cl ^
-            -DCMAKE_INSTALL_PREFIX=c:/opt/blasfeo_x64 ^
+            -DCMAKE_INSTALL_PREFIX=%SRC_DIR%\blasfeo_x64 ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DBLASFEO_CROSSCOMPILING=ON ^
             -DBLAS_API=OFF ^
@@ -47,12 +49,12 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
         if errorlevel 1 exit 1
         cmake --build . --config Release --target install
         if errorlevel 1 exit 1
-        set PIQP_CMAKE_ARGS=%PIQP_CMAKE_ARGS% -DBLASFEO_X64_DIR=c:/opt/blasfeo_x64
+        set "PIQP_CMAKE_ARGS=!PIQP_CMAKE_ARGS! -DBLASFEO_X64_DIR=%SRC_DIR%\blasfeo_x64"
 
         cmake %CMAKE_ARGS% .. ^
             -G "Ninja" ^
             -DCMAKE_C_COMPILER=clang-cl ^
-            -DCMAKE_INSTALL_PREFIX=c:/opt/blasfeo_x64_avx2 ^
+            -DCMAKE_INSTALL_PREFIX=%SRC_DIR%\blasfeo_x64_avx2 ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DBLASFEO_CROSSCOMPILING=ON ^
             -DBLAS_API=OFF ^
@@ -63,12 +65,12 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
         if errorlevel 1 exit 1
         cmake --build . --config Release --target install
         if errorlevel 1 exit 1
-        set PIQP_CMAKE_ARGS=%PIQP_CMAKE_ARGS% -DBLASFEO_X64_AVX2_DIR=c:/opt/blasfeo_x64_avx2
+        set "PIQP_CMAKE_ARGS=!PIQP_CMAKE_ARGS! -DBLASFEO_X64_AVX2_DIR=%SRC_DIR%\blasfeo_x64_avx2"
 
         cmake %CMAKE_ARGS% .. ^
             -G "Ninja" ^
             -DCMAKE_C_COMPILER=clang-cl ^
-            -DCMAKE_INSTALL_PREFIX=c:/opt/blasfeo_x64_avx512 ^
+            -DCMAKE_INSTALL_PREFIX=%SRC_DIR%\blasfeo_x64_avx512 ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DBLASFEO_CROSSCOMPILING=ON ^
             -DBLAS_API=OFF ^
@@ -79,14 +81,14 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
         if errorlevel 1 exit 1
         cmake --build . --config Release --target install
         if errorlevel 1 exit 1
-        set PIQP_CMAKE_ARGS=%PIQP_CMAKE_ARGS% -DBLASFEO_X64_AVX512_DIR=c:/opt/blasfeo_x64_avx512
+        set "PIQP_CMAKE_ARGS=!PIQP_CMAKE_ARGS! -DBLASFEO_X64_AVX512_DIR=%SRC_DIR%\blasfeo_x64_avx512"
     )
 
     if "%ISA_TARGET%"=="ARM64" (
         cmake %CMAKE_ARGS% .. ^
             -G "Ninja" ^
             -DCMAKE_C_COMPILER=clang-cl ^
-            -DCMAKE_INSTALL_PREFIX=c:/opt/blasfeo_arm64 ^
+            -DCMAKE_INSTALL_PREFIX=%SRC_DIR%\blasfeo_arm64 ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DBLASFEO_CROSSCOMPILING=ON ^
             -DBLAS_API=OFF ^
@@ -97,14 +99,14 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
         if errorlevel 1 exit 1
         cmake --build . --config Release --target install
         if errorlevel 1 exit 1
-        set PIQP_CMAKE_ARGS=%PIQP_CMAKE_ARGS% -DBLASFEO_ARM64_DIR=c:/opt/blasfeo_arm64
+        set "PIQP_CMAKE_ARGS=!PIQP_CMAKE_ARGS! -DBLASFEO_ARM64_DIR=%SRC_DIR%\blasfeo_arm64"
     )
 
     if "%ISA_TARGET%"=="AARCH64" (
         cmake %CMAKE_ARGS% .. ^
             -G "Ninja" ^
             -DCMAKE_C_COMPILER=clang-cl ^
-            -DCMAKE_INSTALL_PREFIX=c:/opt/blasfeo_arm64 ^
+            -DCMAKE_INSTALL_PREFIX=%SRC_DIR%\blasfeo_arm64 ^
             -DCMAKE_BUILD_TYPE=Release ^
             -DBLASFEO_CROSSCOMPILING=ON ^
             -DBLAS_API=OFF ^
@@ -115,10 +117,11 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
         if errorlevel 1 exit 1
         cmake --build . --config Release --target install
         if errorlevel 1 exit 1
-        set PIQP_CMAKE_ARGS=%PIQP_CMAKE_ARGS% -DBLASFEO_ARM64_DIR=c:/opt/blasfeo_arm64
+        set "PIQP_CMAKE_ARGS=!PIQP_CMAKE_ARGS! -DBLASFEO_ARM64_DIR=%SRC_DIR%\blasfeo_arm64"
     )
 
-    set CMAKE_ARGS=%CMAKE_ARGS% %PIQP_CMAKE_ARGS%
+    set "CMAKE_ARGS=!CMAKE_ARGS! !PIQP_CMAKE_ARGS!"
+    
     cd ..\..
 )
 

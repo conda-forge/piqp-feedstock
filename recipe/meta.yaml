@@ -8,6 +8,8 @@ package:
 source:
   url: https://github.com/PREDICT-EPFL/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
   sha256: 5009e2774c251886d8a9928c796f5f2317283a8380b611aa8b91ef145813c446
+  patches:
+    - cmake_blasfeo_path.patch
 
 build:
   skip: true  # [win and vc<14]
