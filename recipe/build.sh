@@ -29,6 +29,7 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
 
     if [[ "$ISA_TARGET" == "X64" ]]; then
         cmake ${CMAKE_ARGS} .. \
+              -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
               -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_x64 \
               -DCMAKE_BUILD_TYPE=Release \
               -DBLASFEO_CROSSCOMPILING=ON \
@@ -40,6 +41,7 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
         export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_X64_DIR=$SRC_DIR/blasfeo_x64"
 
         cmake ${CMAKE_ARGS} .. \
+              -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
               -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_x64_avx2 \
               -DCMAKE_BUILD_TYPE=Release \
               -DBLASFEO_CROSSCOMPILING=ON \
@@ -51,6 +53,7 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
         export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_X64_AVX2_DIR=$SRC_DIR/blasfeo_x64_avx2"
 
         cmake ${CMAKE_ARGS} .. \
+              -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
               -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_x64_avx512 \
               -DCMAKE_BUILD_TYPE=Release \
               -DBLASFEO_CROSSCOMPILING=ON \
@@ -64,6 +67,7 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
 
     if [[ "$ISA_TARGET" == "ARM64" ]]; then
         cmake ${CMAKE_ARGS} .. \
+              -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
               -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_arm64 \
               -DCMAKE_BUILD_TYPE=Release \
               -DBLASFEO_CROSSCOMPILING=ON \
@@ -77,6 +81,7 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
 
     if [[ "$ISA_TARGET" == "AARCH64" ]]; then
         cmake ${CMAKE_ARGS} .. \
+              -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
               -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_arm64 \
               -DCMAKE_BUILD_TYPE=Release \
               -DBLASFEO_CROSSCOMPILING=ON \
