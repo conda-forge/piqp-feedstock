@@ -1,5 +1,5 @@
 {% set name = "piqp" %}
-{% set version = "0.5.0" %}
+{% set version = "0.6.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,9 +7,7 @@ package:
 
 source:
   url: https://github.com/PREDICT-EPFL/{{ name }}/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: 5009e2774c251886d8a9928c796f5f2317283a8380b611aa8b91ef145813c446
-  patches:
-    - cmake_blasfeo_path.patch
+  sha256: d30b2c7372acb35a3693d6ab8999311a41e2cee79ed584f69d8f1534ce3dfced
 
 build:
   skip: true  # [win and vc<14]
@@ -33,18 +31,20 @@ requirements:
     - ninja
     - cmake >=3.12
   host:
-    - setuptools >=42
-    - wheel
     - eigen
     - libblasfeo
     - libmatio
     - python
     - pip
+    - scikit-build-core >=0.10.0
+    - pybind11
   run:
     - eigen
     - libblasfeo
     - libmatio
     - python
+    - numpy
+    - scipy
 
 test:
   imports:
