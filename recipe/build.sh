@@ -40,6 +40,8 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
         cmake --build . --config Release --target install
         export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_X64_DIR=$SRC_DIR/blasfeo_x64"
 
+        rm -r *
+
         cmake ${CMAKE_ARGS} .. \
               -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
               -DCMAKE_INSTALL_PREFIX=$SRC_DIR/blasfeo_x64_avx2 \
@@ -51,6 +53,8 @@ if [[ "$ISA_TARGET" != "GENERIC" ]]; then
         cmake --build . --config Release -- -j${CPU_COUNT}
         cmake --build . --config Release --target install
         export PIQP_CMAKE_ARGS="${PIQP_CMAKE_ARGS} -DBLASFEO_X64_AVX2_DIR=$SRC_DIR/blasfeo_x64_avx2"
+
+        rm -r *
 
         cmake ${CMAKE_ARGS} .. \
               -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
