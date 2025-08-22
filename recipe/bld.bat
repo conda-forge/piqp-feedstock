@@ -53,7 +53,8 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
         if errorlevel 1 exit 1
         set "PIQP_CMAKE_ARGS=!PIQP_CMAKE_ARGS! -DBLASFEO_X64_DIR=!BLASFEO_X64_PATH!"
 
-        rm -r *
+        del /q *.*
+        for /d %%d in (*) do rd /s /q "%%d"
 
         set "BLASFEO_X64_AVX2_PATH=C:/blasfeo_x64_avx2"
         cmake %CMAKE_ARGS% .. ^
@@ -73,7 +74,8 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
         if errorlevel 1 exit 1
         set "PIQP_CMAKE_ARGS=!PIQP_CMAKE_ARGS! -DBLASFEO_X64_AVX2_DIR=!BLASFEO_X64_AVX2_PATH!"
 
-        rm -r *
+        del /q *.*
+        for /d %%d in (*) do rd /s /q "%%d"
 
         set "BLASFEO_X64_AVX512_PATH=C:/blasfeo_x64_avx512"
         cmake %CMAKE_ARGS% .. ^
