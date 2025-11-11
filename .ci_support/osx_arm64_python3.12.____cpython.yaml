@@ -15,7 +15,7 @@ cxx_compiler:
 cxx_compiler_version:
 - '19'
 libmatio:
-- 1.5.28
+- 1.5.29
 macos_machine:
 - arm64-apple-darwin20.0.0
 pin_run_as_build:
@@ -26,6 +26,3 @@ python:
 - 3.12.* *_cpython
 target_platform:
 - osx-arm64
-zip_keys:
-- - python
-  - channel_sources
