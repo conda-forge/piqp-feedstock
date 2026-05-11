@@ -1,5 +1,8 @@
 setlocal EnableDelayedExpansion
 
+REM The Windows Azure builders can run out of heap during MSVC code generation.
+set "CMAKE_BUILD_PARALLEL_LEVEL=1"
+
 mkdir conda_build
 cd conda_build
 
