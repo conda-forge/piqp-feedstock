@@ -31,7 +31,7 @@ requirements:
     - ninja
     - cmake >=3.12
   host:
-    - eigen
+    - eigen-abi-devel
     - libblasfeo
     - libmatio
     - python
