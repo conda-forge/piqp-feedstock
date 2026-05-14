@@ -3,7 +3,6 @@ setlocal EnableDelayedExpansion
 REM The Python wheel builds several pybind/Eigen-heavy extension modules.
 REM Keep scikit-build-core/Ninja single-job on Windows Azure to avoid OOM.
 set "CMAKE_BUILD_PARALLEL_LEVEL=1"
-set "SKBUILD_BUILD_TOOL_ARGS=-j1"
 
 mkdir conda_build
 cd conda_build
@@ -146,4 +145,4 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
     cd ..\..
 )
 
-%PYTHON% -m pip install . -vv --no-deps --no-build-isolation --config-settings=build.tool-args=-j1
+%PYTHON% -m pip install . -vv --no-deps --no-build-isolation
