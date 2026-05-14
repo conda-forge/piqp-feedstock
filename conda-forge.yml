@@ -1,14 +1,18 @@
-build_platform:
-  linux_aarch64: linux_64
-  linux_ppc64le: linux_64
-  osx_arm64: osx_64
 azure:
   settings_win:
     variables:
       SET_PAGEFILE: 'True'
+build_platform:
+  linux_aarch64: linux_64
+  linux_ppc64le: linux_64
+  osx_arm64: osx_64
 conda_build:
   error_overlinking: true
 conda_forge_output_validation: true
+remote_ci_setup:
+  # Avoid conda-forge-ci-setup 4.24.3 pagefile regression on Azure Windows.
+  - conda-forge-ci-setup=4.24.2
+  - conda-build>=24.1
 github:
   branch_name: main
   tooling_branch_name: main

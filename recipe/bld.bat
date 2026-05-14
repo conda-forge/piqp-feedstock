@@ -1,8 +1,5 @@
 setlocal EnableDelayedExpansion
 
-REM The Windows Azure builders can run out of heap during MSVC code generation.
-set "CMAKE_BUILD_PARALLEL_LEVEL=1"
-
 mkdir conda_build
 cd conda_build
 
@@ -144,4 +141,8 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
     cd ..\..
 )
 
-%PYTHON% -m pip install . -vv
+REM Eigen 5 AVX512 GEMM kernels can exhaust MSVC memory.
+REM https://gitlab.com/libeigen/eigen/-/work_items/3066
+set "CXXFLAGS=%CXXFLAGS% /DEIGEN_USE_AVX512_GEMM_KERNELS=0"
+
+%PYTHON% -m pip install . -vv --no-deps --no-build-isolation
