@@ -9,6 +9,10 @@ build_platform:
 conda_build:
   error_overlinking: true
 conda_forge_output_validation: true
+remote_ci_setup:
+  # Avoid conda-forge-ci-setup 4.24.3 pagefile regression on Azure Windows.
+  - conda-forge-ci-setup=4.24.2
+  - conda-build>=24.1
 github:
   branch_name: main
   tooling_branch_name: main
