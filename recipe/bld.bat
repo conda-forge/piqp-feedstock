@@ -145,4 +145,8 @@ if NOT "%ISA_TARGET%"=="GENERIC" (
     cd ..\..
 )
 
+REM Eigen 5 AVX512 GEMM kernels can exhaust MSVC memory.
+REM https://gitlab.com/libeigen/eigen/-/work_items/3066
+set "CXXFLAGS=%CXXFLAGS% /DEIGEN_USE_AVX512_GEMM_KERNELS=0"
+
 %PYTHON% -m pip install . -vv --no-deps --no-build-isolation
